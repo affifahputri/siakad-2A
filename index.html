@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIAKAD — Portal Informasi Akademik Kampus</title>
+  <link rel="stylesheet" href="shared/style.css">
+  <style>
+    /* ===== LANDING PAGE SPECIFIC ===== */
+    .landing-nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .landing-nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .landing-nav-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), #f59e0b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.35);
+    }
+    .landing-nav-icon svg { color: white; }
+    .landing-nav-label { font-size: 11px; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .landing-nav-title { font-size: 16px; font-weight: 700; color: var(--text-primary); line-height: 1; }
+    .landing-nav-right { display: flex; align-items: center; gap: 10px; }
+    .server-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: white;
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .server-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); }
+    .server-dot.online { background: var(--success); }
+    .server-dot.offline { background: var(--danger); }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #f59e0b 100%);
+      color: white;
+      padding: 56px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('https://www.transparenttextures.com/patterns/topography.png');
+      opacity: 0.08;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5em; color: rgba(255,255,255,0.8); font-weight: 600; margin-bottom: 12px; }
+    .hero-title { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .hero-desc { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.7; max-width: 480px; margin-bottom: 24px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-btn-primary {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: opacity 0.15s;
+    }
+    .hero-btn-primary:hover { opacity: 0.9; }
+    .hero-btn-secondary {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .hero-btn-secondary:hover { background: rgba(255,255,255,0.25); }
+    .hero-panel {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-panel-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.4em; color: rgba(255,255,255,0.7); font-weight: 600; margin-bottom: 12px; }
+    .hero-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .hero-panel-item {
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      text-align: center;
+    }
+
+    /* ===== MODULES SECTION ===== */
+    .section { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .section-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4em; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .section-title { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 24px; }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .module-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+    .module-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary); }
+    .module-card.active { border-color: var(--primary); border-width: 2px; }
+    .module-card.inactive { opacity: 0.55; cursor: default; }
+    .module-card.inactive:hover { box-shadow: var(--shadow-sm); border-color: var(--border); }
+    .module-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .module-card.inactive .module-num { background: #f3f4f6; color: var(--text-muted); }
+    .module-name { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+    .module-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+    .module-link { font-size: 12px; font-weight: 600; color: var(--primary); margin-top: auto; display: flex; align-items: center; gap: 4px; }
+    .module-soon { font-size: 12px; color: var(--text-muted); margin-top: auto; }
+
+    /* ===== FOOTER ===== */
+    .landing-footer {
+      border-top: 1px solid var(--border);
+      background: white;
+      padding: 20px 24px;
+    }
+    .landing-footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-panel { display: none; }
+      .hero-title { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="landing-nav">
+    <a href="index.html" class="landing-nav-brand">
+      <img src="https://raw.githubusercontent.com/saripudin14/img/refs/heads/main/logo.png"
+           alt="Logo SIAKAD"
+           style="width:40px;height:40px;border-radius:10px;object-fit:contain;background:white;padding:4px;box-shadow:0 4px 12px rgba(249,115,22,0.25);">
+      <div>
+        <div class="landing-nav-label">Portal Akademik</div>
+        <div class="landing-nav-title">SIAKAD</div>
+      </div>
+    </a>
+    <div class="landing-nav-right">
+      <div class="server-badge">
+        <span class="server-dot" id="server-status-dot"></span>
+        <span id="server-status-text" style="font-weight: 600;">Memeriksa Server...</span>
+      </div>
+      <div id="auth-buttons">
+        <a href="mahasiswa/login.html" class="btn btn-primary btn-sm">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center;">
+      <div>
+        <p class="hero-eyebrow">Sistem Informasi Akademik</p>
+        <h1 class="hero-title">Portal Informasi<br>Akademik Kampus</h1>
+        <p class="hero-desc">Kelola data akademik kampus secara digital. Akses informasi mahasiswa, dosen, mata kuliah, jadwal, nilai, dan berbagai layanan akademik lainnya dalam satu platform terpadu.</p>
+        <div class="hero-actions">
+          <a href="mahasiswa/daftar.html" class="hero-btn-primary">Lihat Data Mahasiswa</a>
+          <a href="mahasiswa/login.html" class="hero-btn-secondary" id="hero-login-btn">Login ke Portal</a>
+        </div>
+      </div>
+      
+      <div class="hero-panel">
+        <p class="hero-panel-label">Ringkasan Sistem</p>
+        <div class="hero-panel-grid">
+          <div class="hero-panel-item" style="background: rgba(255,255,255,0.08);">
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 2px;">12</div>
+            <div style="font-size: 9px; opacity: 0.8; text-transform: uppercase;">Modul Aktif</div>
+          </div>
+          <div class="hero-panel-item" style="background: rgba(255,255,255,0.08);">
+            <div style="font-size: 16px; font-weight: 700; margin-bottom: 2px;">Go & Fiber</div>
+            <div style="font-size: 9px; opacity: 0.8; text-transform: uppercase;">Backend Engine</div>
+          </div>
+          <div class="hero-panel-item" style="background: rgba(255,255,255,0.08); grid-column: span 2;">
+            <div style="font-size: 12px; font-weight: 600;" id="hero-welcome-text">Selamat Datang di SIAKAD</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <div class="section">
+    <p class="section-eyebrow">Direktori Modul</p>
+    <h2 class="section-title">Akses semua layanan akademik</h2>
+    
+    <!-- Kategori 1: Administrasi & Akademik -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 15px; font-weight: 700; color: var(--primary); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">Administrasi & Akademik Utama</h3>
+      <div class="modules-grid">
+        <a href="mahasiswa/daftar.html" class="module-card active">
+          <div class="module-num">1</div>
+          <div class="module-name">Data Mahasiswa</div>
+          <div class="module-desc">CRUD data mahasiswa, pengelolaan profil, dan login menggunakan OTP/No HP.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="dosen/index.html" class="module-card active">
+          <div class="module-num">2</div>
+          <div class="module-name">Data Dosen</div>
+          <div class="module-desc">CRUD data dosen, bidang keahlian, jabatan fungsional, dan status pengajaran.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="absensi/index.html" class="module-card active">
+          <div class="module-num">3</div>
+          <div class="module-name">Presensi Kehadiran</div>
+          <div class="module-desc">Pencatatan absensi harian mahasiswa secara live serta statistik kehadiran kelas.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="spp/index.html" class="module-card active">
+          <div class="module-num">4</div>
+          <div class="module-name">Tagihan Keuangan (SPP)</div>
+          <div class="module-desc">Pengecekan biaya perkuliahan, tagihan semesteran, dan riwayat transaksi keuangan.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Kategori 2: Layanan & Sumber Daya -->
+    <div style="margin-bottom: 40px;">
+      <h3 style="font-size: 15px; font-weight: 700; color: var(--primary); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">Tugas Akhir, Magang & Pengumuman</h3>
+      <div class="modules-grid">
+        <a href="skripsi/index.html" class="module-card active">
+          <div class="module-num">5</div>
+          <div class="module-name">Bimbingan Skripsi</div>
+          <div class="module-desc">Manajemen pendaftaran judul tugas akhir, log bimbingan, dan pengajuan sidang.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="pkl/index.html" class="module-card active">
+          <div class="module-num">6</div>
+          <div class="module-name">Layanan PKL</div>
+          <div class="module-desc">Administrasi kerja praktik / PKL, verifikasi tempat magang, dan penilaian laporan.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="pengumuman/index.html" class="module-card active">
+          <div class="module-num">7</div>
+          <div class="module-name">Papan Pengumuman</div>
+          <div class="module-desc">Penyebaran informasi resmi kampus, jadwal akademik penting, dan agenda kegiatan.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="Modul-9/perpustakaan.html" class="module-card active">
+          <div class="module-num">8</div>
+          <div class="module-name">Sistem Perpustakaan</div>
+          <div class="module-desc">Katalog digital perpustakaan, status ketersediaan buku, dan riwayat sirkulasi.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Kategori 3: Kemahasiswaan -->
+    <div style="margin-bottom: 24px;">
+      <h3 style="font-size: 15px; font-weight: 700; color: var(--primary); border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 18px; text-transform: uppercase; letter-spacing: 0.5px;">Layanan & Aktivitas Kemahasiswaan</h3>
+      <div class="modules-grid">
+        <a href="beasiswa/index.html" class="module-card active">
+          <div class="module-num">9</div>
+          <div class="module-name">Program Beasiswa</div>
+          <div class="module-desc">Daftar info penawaran beasiswa aktif, pengiriman berkas, dan hasil seleksi.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="notifikasi/index.html" class="module-card active">
+          <div class="module-num">10</div>
+          <div class="module-name">Notifikasi & Inbox</div>
+          <div class="module-desc">Kotak masuk notifikasi personal, peringatan akademik, dan riwayat pesan masuk.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="prestasi/index.html" class="module-card active">
+          <div class="module-num">11</div>
+          <div class="module-name">Portofolio Prestasi</div>
+          <div class="module-desc">Pencatatan prestasi perlombaan, penghargaan ilmiah, seni, dan olahraga mahasiswa.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+
+        <a href="ormawa.html" class="module-card active">
+          <div class="module-num">12</div>
+          <div class="module-name">Ormawa & UKM</div>
+          <div class="module-desc">Direktori organisasi kemahasiswaan, agenda kegiatan UKM, dan kepengurusan.</div>
+          <div class="module-link">Buka modul <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7"/></svg></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <div class="landing-footer-inner">
+      <span>Portal Informasi Akademik Terpadu</span>
+      <span>SIAKAD &copy; 2026 • Universitas Logistik & Bisnis Internasional</span>
+    </div>
+  </footer>
+
+  <script src="shared/utils.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Periksa Status Login Pengguna
+      const authButtons = document.getElementById("auth-buttons");
+      const heroLoginBtn = document.getElementById("hero-login-btn");
+      const heroWelcomeText = document.getElementById("hero-welcome-text");
+      const user = Auth.getUser();
+      
+      if (Auth.isLoggedIn() && user) {
+        const initials = getInitials(user.nama);
+        
+        // Update navbar button
+        authButtons.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <a href="mahasiswa/profil.html" style="display: flex; align-items: center; gap: 8px; text-decoration: none;">
+              <div class="avatar" style="width: 32px; height: 32px; font-size: 12px; font-weight: 700; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
+                ${initials}
+              </div>
+              <span style="font-size: 13px; font-weight: 600; color: var(--text-primary);">${user.nama.split(' ')[0]}</span>
+            </a>
+            <button onclick="handleLogout()" class="btn btn-secondary btn-sm" style="padding: 5px 10px; font-size: 11px;">Logout</button>
+          </div>
+        `;
+
+        // Update hero buttons
+        if (heroLoginBtn) {
+          heroLoginBtn.textContent = "Ke Profil Saya";
+          heroLoginBtn.href = "mahasiswa/profil.html";
+        }
+
+        // Update hero panel welcome
+        if (heroWelcomeText) {
+          heroWelcomeText.textContent = `Aktif: ${user.nama}`;
+        }
+      }
+
+      // 2. Periksa Status Server Backend
+      checkBackendStatus();
+      setInterval(checkBackendStatus, 15000); // periksa setiap 15 detik
+    });
+
+    function handleLogout() {
+      Auth.logout();
+      showToast("Berhasil keluar dari sistem", "info");
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
+    }
+
+    async function checkBackendStatus() {
+      const dot = document.getElementById("server-status-dot");
+      const text = document.getElementById("server-status-text");
+      try {
+        const response = await fetch(API_BASE + "/api", { method: 'GET' });
+        if (response.ok) {
+          dot.className = "server-dot online";
+          text.innerText = "Backend Online";
+        } else {
+          dot.className = "server-dot offline";
+          text.innerText = "Backend Error";
+        }
+      } catch (error) {
+        dot.className = "server-dot offline";
+        text.innerText = "Backend Offline";
+      }
+    }
+  </script>
+</body>
+</html>
